@@ -19,7 +19,7 @@ const obstacles = [];
 let gameStarted = false;
 let isGameOver = false;
 
-// Load images with correct paths from media folder
+// 
 const playerSprite = new Image();
 playerSprite.src = 'media/mario.png';
 playerSprite.onerror = () => console.error('Error loading mario sprite');
@@ -32,10 +32,10 @@ const logoSprite = new Image();
 logoSprite.src = 'media/mario-logo.png';
 logoSprite.onerror = () => console.error('Error loading mario logo');
 
-// Add retry icon path data
+//  retry icon path data
 const retryPath = new Path2D('M 0 -15 A 15 15 0 1 1 0 15 A 15 15 0 1 1 0 -15 M -5 -5 L -5 -10 L -10 -5 L -5 0 L -5 -5 M 5 5 L 5 10 L 10 5 L 5 0 L 5 5');
 
-// Add button state tracking
+//  button state tracking
 let isHoveringRetry = false;
 let isPressingRetry = false;
 
@@ -72,18 +72,17 @@ function update() {
         }
     }
 
-    // Reduce spawn rate from 0.02 (2%) to 0.01 (1%)
-    // This means Gengars will spawn half as frequently
+    // Gengar spawn rate
     if (Math.random() < 0.01) {
         spawnObstacle();
     }
 
     // Update obstacles
     for (let i = obstacles.length - 1; i >= 0; i--) {
-        // Slightly reduce speed from 5 to 4 to make it easier
+        // Slightly reduces speed from 5 to 4 to make it easier
         obstacles[i].x -= 4;
 
-        // Remove obstacles that are off screen
+        // Removes obstacles that are off screen
         if (obstacles[i].x + obstacles[i].width < 0) {
             obstacles.splice(i, 1);
             player.score++;
@@ -117,13 +116,13 @@ function drawRetryButton(x, y) {
         ctx.shadowBlur = 15;
     }
 
-    // Draw button background
+    // 
     ctx.fillStyle = isHoveringRetry ? '#FF3333' : '#E52521';
     ctx.beginPath();
     ctx.arc(0, 0, 25, 0, Math.PI * 2);
     ctx.fill();
 
-    // Draw retry icon
+    // 
     ctx.strokeStyle = 'white';
     ctx.lineWidth = 3;
     ctx.stroke(retryPath);
@@ -135,7 +134,7 @@ function draw() {
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw ground - changed from #8b4513 to #2e8b57 (Sea Green)
+    // 
     ctx.fillStyle = '#2e8b57';
     ctx.fillRect(0, 350, canvas.width, 50);
 
@@ -152,7 +151,7 @@ function draw() {
         return;
     }
 
-    // Draw player with sprite
+    // 
     try {
         ctx.drawImage(playerSprite, player.x, player.y, player.width, player.height);
     } catch(e) {
@@ -189,7 +188,7 @@ function draw() {
             console.error('Error drawing logo:', e);
         }
 
-        // Game Over text
+        // Text after Game over
         ctx.fillStyle = 'white';
         ctx.font = '48px Arial';
         ctx.fillText('Game Over!', canvas.width/2 - 100, canvas.height/2);
@@ -198,7 +197,7 @@ function draw() {
         ctx.font = '32px Arial';
         ctx.fillText(`Final Score: ${player.score}`, canvas.width/2 - 80, canvas.height/2 + 50);
 
-        // Draw retry button
+        // retry button
         drawRetryButton(canvas.width/2, canvas.height/2 + 100);
     }
 }
